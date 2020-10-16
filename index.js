@@ -21,7 +21,7 @@ app.use(cors());
 //start
 
 const MongoClient = require('mongodb').MongoClient;
-const uri = "mongodb+srv://creativeAgency:creativeAgency@cluster0.sfbl4.mongodb.net/creativeAgency?retryWrites=true&w=majority";
+const uri = "mongodb+srv://{process.env.DB_PASS}:{process.env.DB_PASS}@cluster0.sfbl4.mongodb.net/creativeAgency?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 client.connect(err => {
   const adminCollection = client.db("creativeAgency").collection("admin");
@@ -159,6 +159,4 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+app.listen(process.env.PORT ||port)
